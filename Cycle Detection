@@ -1,0 +1,84 @@
+//fn to detect whether a LL is cyclic
+//cyclic vera circular vera.
+//ethachum oru node athoda next node illama vera ethachum oru node ah point panna, atha cyclic LL nu solrom
+//aana circular la last node first node ah point pannanum. cyclic la apd entha rules um kedaiyaathu
+
+import java.util.*;
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int val) {
+        data = val;
+        next = null;
+    }
+}
+
+class LinkedList {
+    Node head = null;
+    Node tail = null;
+
+    // Insert at end
+    void insert(int val) {
+        Node newNode = new Node(val);
+
+        if (head == null) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail.next = newNode;
+            tail = newNode;
+        }
+    }
+
+    // Display list
+    void display() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+
+    // Detect cycle (Floyd’s Algorithm)
+    boolean hasCycle() {
+        Node slow = head;
+        Node fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast) {                        //rendu ptr um ethachum oru point la meet aana, namma traverse panrathu cyclic LL nu kandu pudichiralam
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        LinkedList list = new LinkedList();
+
+        // Input until EOF
+        while (sc.hasNextInt()) {
+            int val = sc.nextInt();
+            list.insert(val);
+        }
+
+        list.display();
+
+        // Check cycle
+        if (list.hasCycle()) {
+            System.out.println("Cycle detected");
+        } else {
+            System.out.println("No cycle");
+        }
+
+        sc.close();
+    }
+}
