@@ -1,0 +1,67 @@
+🧩 Problem: Maximum Equal Anagram Groups
+
+You are given a string s consisting of lowercase English letters.
+You want to divide the string into the maximum number of non-empty strings such that:
+Each resulting string has the same length
+Each string contains the same frequency of characters
+In other words, all resulting strings are anagrams of each other
+
+Return the maximum number of such strings that can be formed.
+
+📌 Examples
+
+Example 1:
+
+Input: s = "ababcc"
+Output: 3
+Explanation:
+We can divide into: "abc", "abc", "abc"
+
+Example 2:
+
+Input: s = "zzzzz"
+Output: 5
+Explanation:
+Each "z" forms a valid group
+
+Example 3:
+
+Input: s = "aabbccc"
+Output: 1
+Explanation:
+No equal split possible with same character frequency
+
+🔒 Constraints
+1 <= s.length <= 10^5
+s contains only lowercase English letters
+
+Logic:
+Freq Array/Hash Map contains the freq of all the alphabets in the string
+All the freqs are performed gcd function and the final gcd is the answer
+
+Code:
+import java.util.*;
+public class Main{
+  public static void main(String[] args){
+    Scanner sc=new Scanner(System.in);
+    String s=sc.nextLine();
+    HashMap<Character,Integer> map=new HashMap<>();
+    int n=s.length();
+    for(int i=0;i<n;i++){
+      char ch=s.charAt(i);
+      if(map.containsKey(ch)){
+        map.put(ch,map.get(ch)+1);
+      }else{
+        map.put(ch,1);
+      }
+    }
+    int temp=0;
+    for(int freq:map.values()){
+      temp=gcd(temp,freq);
+    }
+    System.out.print(temp);
+  }
+  static int gcd(int a,int b){
+    return (b==0)?a:gcd(b,a%b);
+  }
+}
