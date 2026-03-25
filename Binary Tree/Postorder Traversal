@@ -1,0 +1,52 @@
+import java.util.*;
+class Node{
+  int data;
+  Node left,right;
+  
+  Node(int val){
+    data=val;
+    left=right=null;
+  }
+}
+
+public class Main{
+  public static void main(String args[]){
+    
+    Scanner sc=new Scanner(System.in);
+    Queue<Node> q=new LinkedList<>();
+    
+    int val=sc.nextInt();
+    Node root=new Node(val);
+    q.add(root);
+    
+    while(!q.isEmpty()){
+      Node curr=q.poll();
+      
+      int leftVal=sc.nextInt();
+      if(leftVal!=-1){
+        Node leftnode=new Node(leftVal);
+        curr.left=leftnode;
+        q.add(leftnode);
+      }
+      
+      int rightVal=sc.nextInt();
+      if(rightVal!=-1){
+        Node rightnode=new Node(rightVal);
+        curr.right=rightnode;
+        q.add(rightnode);
+      }
+    }
+    System.out.print("Post-order: ");
+    postorder(root);
+    System.out.println();
+  }
+
+  static void postorder(Node root){
+    if(root==null){
+      return;
+    }
+    postorder(root.left);
+    postorder(root.right);
+    System.out.print(root.data+" ");
+  }
+}
