@@ -43,6 +43,9 @@ public class Main{
 }
 
 static void leftview(Node root){
+  if(root==null){
+    return;
+  }
   Queue<Node> q=new LinkedList<>();
   q.add(root);
 
