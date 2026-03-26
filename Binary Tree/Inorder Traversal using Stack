@@ -1,3 +1,5 @@
+//B -> A -> C
+
 import java.util.*;
 class Node{
   int data;
