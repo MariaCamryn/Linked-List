@@ -1,0 +1,53 @@
+//Printing only one solution
+
+import java.util.*;
+public class Main{
+  public static void main(String[] args){
+    Scanner sc=new Scanner(System.in);
+    int n=sc.nextInt();
+    int[][] mat=new int[n][n];
+    if(solve(0,mat,n)){
+      for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+          System.out.print(mat[i][j]+" ");
+        }
+        System.out.println();
+      }
+    }
+  }
+
+  public static boolean solve(int r,int[][] mat,int n){
+    if(r==n){
+      return true;
+    }
+      for(int j=0;j<n;j++){
+        if(safe(mat,r,j,n)){
+          mat[r][j]=1;
+          if(solve(r+1,mat,n)){
+            return true;
+          }
+          mat[r][j]=0;
+        }
+      }
+    return false;
+  }
+  
+  public static boolean safe(int[][] mat,int x,int y, int n){             //to check if we can place a queen in a cell
+    for(int i=x,j=y;i>=0&&j>=0;i--,j--){                                  //left diagnol (i-1,j-1)
+      if(mat[i][j]==1){
+        return false;
+      }
+    }
+    for(int i=x;i>=0;i--){                                                //up (i-1,j)
+      if(mat[i][y]==1){
+        return false;
+      }
+    }
+    for(int i=x,j=y;i>=0&&j<n;i--,j++){                                   //right diagnol (i-1,j+1)
+      if(mat[i][j]==1){
+        return false;
+      }
+    }
+    return true;
+  }
+}
